@@ -1,0 +1,96 @@
+.card.sold {
+  background-color: #f8d7da;
+}
+.card.available {
+  background-color: #d4edda;
+}
+.sold-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #dc3545;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: rgba(36,47,48,255);
+  margin-bottom: 40px;
+}
+.card-container {
+  display: grid;
+  grid-template-rows: auto auto;
+  margin-top: 20px;
+}
+
+.card-container.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: rgb(152,175,41);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  font-size: 1.25rem;
+  background-color: rgb(104, 129, 10);
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  padding: 15px;
+}
+
+.card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 992px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+}
+.btn-card-booking{
+  margin-top: auto;
+}
+.card-body {
+  text-align: left;
+}
+
+
+

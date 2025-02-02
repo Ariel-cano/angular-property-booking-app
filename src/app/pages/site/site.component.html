@@ -1,0 +1,294 @@
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Sites Management</h3>
+  @if(isFormView()){
+    <div class="card mb-4">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-6">
+            <h5>Create/Update Site</h5>
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-sm btn-success" (click)="toggleView()">Go to site list</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="siteTitle" class="form-label">Site Title</label>
+              <input type="text" #title = 'ngModel' class="form-control" [(ngModel)]="formObj.siteTitle" id="siteTitle" name="siteTitle" placeholder="Enter Site Title" required minlength="4">
+              @if(title.touched){
+                <div class="text-danger">
+                  @if(title.errors?.['required']){
+                    <span>
+                    This is required field
+                  </span>
+                  }
+                  @if(title.errors?.['minlength']){
+                    <span>
+                    Min 4 char required
+                  </span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="location" class="form-label">Location</label>
+              <input type="text" #location = 'ngModel' required minlength="4" class="form-control" [(ngModel)]="formObj.location" id="location" name="location" placeholder="Enter Location">
+              @if(location.touched){
+                <div class="text-danger">
+                  @if(location.errors?.['required']){
+                    <span>
+                    This is required field
+                  </span>
+                  }
+                  @if(location.errors?.['minlength']){
+                    <span>
+                    Min 4 char required
+                  </span>
+                  }
+                </div>
+              }
+            </div>
+            <div class="col-md-6">
+              <label  class="form-label">Property Type ID</label>
+              <select name="propertyTypeId" id="" class="form-select" [(ngModel)]="formObj.propertyTypeId">
+                <option value="">Select Property Type</option>
+                @for (item of propertyType$| async; track $index){
+                <option [value]="item.propertTypeId">{{item.propertyType}}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="city" class="form-label">City</label>
+              <input type="text" #city = 'ngModel' required minlength="4" class="form-control" [(ngModel)]="formObj.city" id="city" placeholder="Enter City" name="city">
+              @if(city.touched){
+                <div class="text-danger">
+                  @if(city.errors?.['required']){
+                    <span>
+                    This is required field
+                  </span>
+                  }
+                  @if(city.errors?.['minlength']){
+                    <span>
+                    Min 4 char required
+                  </span>
+                  }
+                </div>
+              }
+            </div>
+            <div class="col-md-6">
+              <label for="pincode" class="form-label">Pincode</label>
+              <input type="text" #pincode = 'ngModel' required minlength="4" class="form-control" [(ngModel)]="formObj.pincode" id="pincode" placeholder="Enter Pincode" name="pincode">
+              @if(pincode.touched){
+                <div class="text-danger">
+                  @if(pincode.errors?.['required']){
+                    <span>
+                    This is required field
+                  </span>
+                  }
+                  @if(pincode.errors?.['minlength']){
+                    <span>
+                    Min 4 char required
+                  </span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="state" class="form-label">State</label>
+              <input type="text" #state = 'ngModel' required minlength="4" class="form-control" id="state" [(ngModel)]="formObj.state" placeholder="Enter State" name="state">
+              @if(state.touched){
+                <div class="text-danger">
+                  @if(state.errors?.['required']){
+                    <span>
+                    This is required field
+                  </span>
+                  }
+                  @if(state.errors?.['minlength']){
+                    <span>
+                    Min 4 char required
+                  </span>
+                  }
+                </div>
+              }
+            </div>
+            <div class="col-md-6">
+              <label for="totalProperties" class="form-label">Total Properties</label>
+              <input type="number" #totalProperties = 'ngModel' required class="form-control" [(ngModel)]="formObj.totalProperties" id="totalProperties" name="totalProperties"  placeholder="Enter Total Properties">
+              @if(totalProperties.touched){
+                <div class="text-danger">
+                  @if(totalProperties.errors?.['required']){
+                    <span>
+                    This is required field
+                  </span>
+                  }
+                  @if(totalProperties.errors?.['minlength']){
+                    <span>
+                    Min 4 char required
+                  </span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <button type="button" *ngIf="formObj.siteId == 0" (click)="onSave()" class="btn btn-primary">Save</button>
+          <button type="button" *ngIf="formObj.siteId !== 0"  (click)="onUpdate()" class="btn btn-warning">Update</button>
+
+        </form>
+      </div>
+    </div>
+  }@else{
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-6">
+            <h5>Site List</h5>
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-sm btn-success" (click)="toggleView()">Create new</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Site Title</th>
+            <th scope="col">Location</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Total Properties</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="gridData.length == 0">
+            <tr>
+              <td colspan="7" class="text-center">
+                <p>No Record Found</p>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="gridData.length != 0">
+            <tr *ngFor="let data of gridData; let sr=index">
+              <th scope="row">{{sr+1}}</th>
+              <td>{{data.siteTitle}}</td>
+              <td>{{data.location}}</td>
+              <td>{{data.city}}</td>
+              <td>{{data.state}}</td>
+              <td>{{data.totalProperties}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm mx-2" (click)="onEdit(data)">Edit</button>
+                <button class="btn btn-success btn-sm mx-2" (click)="openModal(data)">Properties</button>
+                <button class="btn btn-danger btn-sm mx-2" (click)="onDelete(data)">Delete</button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>
+<div class="modal" tabindex="-1" role="dialog" #propertyModel>
+  <div class="modal-dialog modal-lg" role="document" >
+    <div class="modal-content">
+      <div class="modal-header" style="justify-content: space-between">
+        <h5 class="modal-title">Properties</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()" style="width: 40px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 5px">
+        <div class="row">
+          <div class="col-8">
+            <div class="card">
+              <div class="card-header">
+                <h5>Properties List</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-bordered table-sm">
+                  <thead>
+                  <tr>
+                    <th scope="col">Property Number</th>
+                    <th scope="col">Facing</th>
+                    <th scope="col">Total Area</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @for(item of propertyList; track $index){
+                    <tr>
+                      <td>{{item.propertyNo}}</td>
+                      <td>{{item.facing}}</td>
+                      <td>{{item.totalArea}}</td>
+                      <td>{{item.rate}}</td>
+                      <td>
+                        <button class="btn btn-warning btn-sm" (click)="onEditProperty(item)">Edit</button>
+                        <button class="btn btn-danger btn-sm" (click)="onDeleteProperty(item)" >Delete</button>
+                      </td>
+                    </tr>
+                  }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card mb-4 p-2">
+              <div class="card-header">
+                <h5>Property Details</h5>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="propertyForm">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="propertyNo" class="form-label">Prop. num</label>
+                      <input type="number" formControlName="propertyNo" class="form-control" id="propertyNo" placeholder="Enter Property Number">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="rate" class="form-label">Rate</label>
+                      <input type="number" formControlName="rate" class="form-control" id="rate" placeholder="Enter Rate (e.g., 5000 per sqft)">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="facing" class="form-label">Facing</label>
+                      <input type="text" formControlName="facing" class="form-control" id="facing" placeholder="Enter Facing (e.g., North, East)">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="totalArea" class="form-label">Total Area</label>
+                      <input type="text" formControlName="totalArea" class="form-control" id="totalArea" placeholder="Enter Total Area (e.g., 1500 sqft)">
+                    </div>
+                  </div>
+
+                  <button *ngIf="propertyForm.controls['propertyId'].value == 0" type="button" (click)="onSaveProperty()" class="btn btn-primary">Save</button>
+                  <button *ngIf="propertyForm.controls['propertyId'].value != 0" type="button" (click)="onUpdateProperty()" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="closeModal()" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

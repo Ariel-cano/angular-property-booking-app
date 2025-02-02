@@ -1,0 +1,42 @@
+<div class="container my-4">
+  <h3>Dashboard</h3>
+  <div class="card-container grid-3">
+      <div class="card">
+        <div class="card-header">Customers</div>
+        <div class="card-body">
+          <p class="card-text" >{{customersNumber$ | async}}</p>
+        </div>
+      </div>
+    <div class="card">
+      <div class="card-header">Sites</div>
+      <div class="card-body">
+        <p class="card-text" >{{sitesNumber$ | async}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Property Types</div>
+      <div class="card-body">
+        <p class="card-text" >{{propertyTypesNumber$ | async}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Properties Booking</div>
+      <div class="card-body">
+        <p class="card-text" >{{propertyBookingNumber$ | async}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Properties</div>
+      <div class="card-body">
+        <p class="card-text" >{{propertiesNumber$ | async}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Properties Available </div>
+      <div class="card-body">
+        <p class="card-text" >{{propertyAvailableNumber }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,101 @@
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Booking Properties Management</h3>
+
+  <div class="mb-4">
+    <label for="siteDropdown" class="form-label card-text">Select Site</label>
+    <select id="siteDropdown" class="form-select" [(ngModel)]="siteId" (change)="getProperties()">
+      <option value="" disabled selected>Select a Site</option>
+      @for(item of sites$ | async; track $index){
+        <option [value]="item.siteId">{{item.siteTitle}}</option>
+      }
+    </select>
+  </div>
+    <div class="card-container grid-3">
+    @for (item of propertyList; track $index){
+      <div class="card">
+        <div class="card-header">
+          <div  [className]="checkIfPropertyAvailable(item.propertyId) !== null ? 'card sold' : 'card available'">
+            <h3>{{item.propertyNo}}</h3>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{item.totalArea}} sq.m, {{item.facing}} Facing</p>
+          <p class="card-text">Rate: {{item.rate}}$/sq.m</p>
+          @if(checkIfPropertyAvailable(item.propertyId) !== null) {
+            <p class="card-text">booked by: {{checkIfPropertyAvailable(item.propertyId).customerName}}</p>
+            <button class="btn btn-danger btn-card-booking">Sold</button>
+          }@else{
+            <button class="btn btn-success btn-card-booking" (click)="openModal(item)">Book</button>
+          }
+        </div>
+      </div>
+        }
+    </div>
+  </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="justify-content: space-between">
+        <h5 class="modal-title">Booking of properties</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()" style="width: 40px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <form [formGroup]="bookingForm">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input  formControlName="name" name="name" class="form-control" type="text"  id="name" required>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="mobile">Mobile</label>
+                  <input type="text" formControlName="mobile" name="mobile" class="form-control" id="mobile" required>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="emailid">Email</label>
+                  <input type="email" formControlName="emailid" name="emailid" class="form-control" id="emailid" required>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" formControlName="address" name="address" class="form-control" id="address" required>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3 mt-3">
+              <div class="col-md-12">
+                <label for="bookingDate" class="form-label">Booking Date</label>
+                <input type="date" formControlName="bookindDate" name="bookindDate" class="form-control" id="bookingDate">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="bookingRate" class="form-label">Booking Rate</label>
+                <input type="number" formControlName="bookingRate" name="bookingRate" class="form-control" id="bookingRate" placeholder="Enter Booking Rate">
+              </div>
+              <div class="col-md-6">
+                <label for="totalAmount" class="form-label">Total Amount</label>
+                <input type="number" formControlName="" name="" class="form-control" id="totalAmount" placeholder="Enter Total Amount">
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" (click)="doBooking()">Save</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="closeModal()" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

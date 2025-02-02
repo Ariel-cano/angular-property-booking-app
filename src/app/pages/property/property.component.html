@@ -1,0 +1,94 @@
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Property Details Management</h3>
+    <div class="card">
+      <div class="card-header">
+        <div class="header-container">
+          <h5>Properties List</h5>
+          <div class="btn-container">
+            @if(secondBorder < propertyList.length){
+              <button type="button" class="btn btn-success m-2" (click)="showMore()">Next Properties</button>
+            }
+            @if(firstBorder > 0){
+              <button type="button" class="btn btn-warning m-2" (click)="showOld()">Back</button>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Property Number</th>
+            <th scope="col">Facing</th>
+            <th scope="col">Total Area</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          @for(item of visibleProperties; track $index){
+          <tr>
+            <th scope="row">{{$index+1}}</th>
+            <td>{{item.propertyNo}}</td>
+            <td>{{item.facing}}</td>
+            <td>{{item.totalArea}}</td>
+            <td>{{item.rate}}</td>
+            <td>
+              <button class="btn btn-warning btn-sm m-1" (click)="openModal(item)">Edit</button>
+              <button class="btn btn-danger btn-sm m-1" (click)="onDeleteProperty(item)">Delete</button>
+            </td>
+          </tr>
+          }
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" #propertiesModel>
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="justify-content: space-between">
+        <h5>Property Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()" style="width: 40px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 5px">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4 p-2">
+                <form [formGroup]="propertyForm">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="propertyNo" class="form-label">Prop. num</label>
+                      <input type="number" formControlName="propertyNo" class="form-control" id="propertyNo" placeholder="Enter Property Number">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="rate" class="form-label">Rate</label>
+                      <input type="number" formControlName="rate" class="form-control" id="rate" placeholder="Enter Rate (e.g., 5000 per sqft)">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="facing" class="form-label">Facing</label>
+                      <input type="text" formControlName="facing" class="form-control" id="facing" placeholder="Enter Facing (e.g., North, East)">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="totalArea" class="form-label">Total Area</label>
+                      <input type="text" formControlName="totalArea" class="form-control" id="totalArea" placeholder="Enter Total Area (e.g., 1500 sqft)">
+                    </div>
+                  </div>
+                  <button  type="button" (click)="onUpdateProperty()" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
