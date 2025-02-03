@@ -1,4 +1,4 @@
-# Angular Vacation Management App
+# Angular Property Booking App
 
 This project is a Real Estate Booking Application built using Angular, Bootstrap. The application provides an ERP-based approach to managing real estate properties, bookings, and user interactions. It includes a dashboard and property management pages for efficient handling of real estate data.
 
