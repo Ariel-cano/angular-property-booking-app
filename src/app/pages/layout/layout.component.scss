@@ -7,3 +7,15 @@
 .nav-pills .nav-link svg {
   fill: white;
 }
+
+.sidebar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-child{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: left;
+  }
+}

@@ -57,7 +57,7 @@
   </symbol>
 </svg>
 <div style="display: flex;">
-  <div style="display: inline-block;width: 15%">
+  <div style="display: inline-block;width: 20%">
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white vh-100 sidebar">
     <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <span class="fs-4">Property booking</span>
@@ -70,25 +70,25 @@
           Dashboard
         </a>
       </li>
-      <li>
+      <li *ngIf="userRole === 'admin'">
         <a href="#" class="nav-link text-white" routerLink="property-type" routerLinkActive="active">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
           Property Type
         </a>
       </li>
-      <li>
+      <li *ngIf="userRole === 'admin'" >
         <a routerLink="site-master" routerLinkActive="active" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
           Sites
         </a>
       </li>
-      <li>
+      <li *ngIf="userRole === 'admin'">
         <a routerLink="property" routerLinkActive="active" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#collection"></use></svg>
           Properties
         </a>
       </li>
-      <li>
+      <li >
         <a routerLink="booking" routerLinkActive="active" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
           Booking
@@ -96,23 +96,18 @@
       </li>
     </ul>
     <hr>
-    <div class="dropdown">
-      <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="sidebar-container">
+          <strong>Welcome, {{loggedUserData.userName}}</strong>
+          <button type="button" class="btn btn-primary" (click)="onLogoff()">Sign Out</button>
+        </div>
+      <div class="sidebar-container-child">
         <img src="https://avatars.githubusercontent.com/u/180523121?v=4" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>Ariel-cano</strong>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
+        <strong>Author: Ariel-cano</strong>
+      </div>
     </div>
-  </div>
 
 </div>
-  <div style="display: inline-block; width: 85%; " class="container-layout">
+  <div style="display: inline-block; width: 80%; " class="container-layout">
     <router-outlet></router-outlet>
   </div>
 </div>

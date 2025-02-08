@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {IAPIResponseModel, IProperty, IPropertyType, Site} from '../model/master';
+import {IAPIResponseModel, IProperty, IPropertyType, Site, User} from '../model/master';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +66,10 @@ export class MasterService {
   }
   getSiteDetails(id: number): Observable<IAPIResponseModel> {
     return this.http.get<IAPIResponseModel>(environment.API_URL + 'getSiteDetails?siteId='+id)
+  }
+
+  createNewUser(obj: User): Observable<IAPIResponseModel>{
+    return this.http.post<IAPIResponseModel>(`https://projectapi.gerasim.in/api/FreelancerJobs/Register`, obj)
   }
 
 

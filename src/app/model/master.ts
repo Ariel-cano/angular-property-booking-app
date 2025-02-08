@@ -50,3 +50,20 @@ export interface ICustomer {
   address: string
 }
 
+export class User {
+  userId: number;
+  userName: string;
+  fullName: string;
+  emailId: string;
+  password: string;
+
+  constructor() {
+    this.userId = 0;
+    this.userName = '';
+    this.fullName = '';
+    this.emailId = '';
+    this.password = '';
+  }
+}
+
+

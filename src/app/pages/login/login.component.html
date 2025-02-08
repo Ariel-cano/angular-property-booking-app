@@ -1,18 +1,42 @@
 <div class="parent">
 <img src="https://www.centralsaanich.ca/sites/default/files/styles/16_9/public/2023-10/shutterstock_523424383.jpg?itok=bmF2kucm" alt="">
-<div class="container">
-  <form [formGroup]="userForm">
-    <h1>Login</h1>
-    <div class="input-box">
-      <input type="email" placeholder="Email" formControlName="username">
-      <i class='bx bx-envelope'></i>
-    </div>
+  <div class="container" *ngIf="!signUpTrigger">
+    <form [formGroup]="loginForm">
+      <h1 style="text-align: center">Sign In</h1>
+      <div class="input-box">
+        <input type="text" id="userName" formControlName="userName" placeholder="Username">
+        <i class='bx bx-envelope'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" id="password" formControlName="password" placeholder="Password">
+        <i class='bx bx-lock-alt'></i>
+      </div>
+      <button type="button" class="btn-main" (click)="onLogin()">Sign In</button>
+      <button type="button" class="btn" (click)="signUpTrigger = !signUpTrigger">Sign Up</button>
+    </form>
+  </div>
 
-    <div class="input-box">
-      <input type="password" placeholder="Password" formControlName="password">
-      <i class='bx bx-lock-alt' ></i>
-    </div>
-    <button class="btn btn-primary" (click)="onLogin()" >Login</button>
-  </form>
-</div>
+  <div class="container" *ngIf="signUpTrigger">
+    <form [formGroup]="signUpForm">
+      <h1 style="text-align: center">Sign Up</h1>
+      <div class="input-box">
+        <input type="email" placeholder="Email" formControlName="emailId">
+        <i class='bx bx-envelope'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Password" formControlName="password">
+        <i class='bx bx-lock-alt'></i>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="Username" formControlName="userName">
+        <i class='bx bx-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="Full Name" formControlName="fullName">
+        <i class='bx bx-user'></i>
+      </div>
+      <button type="button" class="btn-main" (click)="onSaveUser()">Sign Up</button>
+      <button class="btn" (click)="signUpTrigger = !signUpTrigger">Sign In</button>
+    </form>
+  </div>
 </div>
